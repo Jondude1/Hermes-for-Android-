@@ -45,16 +45,25 @@ private val NODES: List<Node> = List(COUNT) { i ->
 }
 
 /** Each node linked to its two nearest neighbours. Fibonacci neighbours sit a Fibonacci step apart in index. */
-private val LINKS: List<Pair<Int, Int>> = buildList {
+private val LINKS: List<Pair<Int, Int>> = run {
     val steps = intArrayOf(1, 2, 3, 5, 8, 13, 21, 34, 55)
+    val out = ArrayList<Pair<Int, Int>>()
     for (i in NODES.indices) {
         val a = NODES[i]
-        val near = steps.mapNotNull { s -> (i + s).takeIf { it < COUNT } }
-            .map { j -> val b = NODES[j]; j to ((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y) + (a.z - b.z) * (a.z - b.z)) }
-            .sortedBy { it.second }
-            .take(2)
-        near.forEach { add(i to it.first) }
+        var best1 = -1; var d1 = Float.MAX_VALUE
+        var best2 = -1; var d2 = Float.MAX_VALUE
+        for (step in steps) {
+            val j = i + step
+            if (j >= COUNT) continue
+            val b = NODES[j]
+            val dx = a.x - b.x; val dy = a.y - b.y; val dz = a.z - b.z
+            val d = dx * dx + dy * dy + dz * dz
+            if (d < d1) { best2 = best1; d2 = d1; best1 = j; d1 = d } else if (d < d2) { best2 = j; d2 = d }
+        }
+        if (best1 >= 0) out.add(i to best1)
+        if (best2 >= 0) out.add(i to best2)
     }
+    out
 }
 
 @Composable
