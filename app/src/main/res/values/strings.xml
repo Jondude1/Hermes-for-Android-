@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Hermes</string>
+    <string name="a11y_label">Hermes screen control</string>
+    <string name="a11y_description">Lets Hermes read what is on screen and tap, type and scroll for you when you ask it to do something in an app. Hermes only acts while a task you started is running.</string>
+</resources>
