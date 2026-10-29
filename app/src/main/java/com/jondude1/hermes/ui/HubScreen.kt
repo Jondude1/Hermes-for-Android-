@@ -100,7 +100,7 @@ private fun MindTab(c: AgentController) {
         item { TextBox("", profile, { profile = it }, singleLine = false, minHeight = 140) }
         item {
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                Pill("Save profile", color = if (profile != c.memory.profile) W.Gold else W.Bone) { c.memory.setProfile(profile) }
+                Pill("Save profile", color = if (profile != c.memory.profile) W.Gold else W.Bone) { c.memory.saveProfile(profile) }
                 if (profile != c.memory.profile) Pill("Undo") { profile = c.memory.profile }
             }
         }

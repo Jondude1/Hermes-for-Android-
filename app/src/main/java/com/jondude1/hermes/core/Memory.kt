@@ -55,11 +55,11 @@ class Memory(ctx: Context) {
     /** First launch only: start from what's already known about Jon instead of a blank slate. */
     fun seedIfNew() {
         if (!isNew) return
-        setProfile(Seed.PROFILE)
+        saveProfile(Seed.PROFILE)
         Seed.MEMORIES.asReversed().forEach { (text, kind) -> save(text, kind) }
     }
 
-    fun setProfile(text: String) {
+    fun saveProfile(text: String) {
         profile = text.trim().take(MAX_PROFILE)
         profileFile.write(JSONObject().put("text", profile).toString())
     }

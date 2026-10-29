@@ -77,7 +77,7 @@ object MemoryTools {
         override suspend fun run(input: JSONObject, ctx: ToolContext): ToolResult {
             val text = input.optString("profile").trim()
             if (text.length < 40) return ToolResult("That profile is too short; send the whole thing.", isError = true)
-            ctx.controller.memory.setProfile(text)
+            ctx.controller.memory.saveProfile(text)
             return ToolResult("Profile updated.")
         }
     }
